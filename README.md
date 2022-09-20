@@ -11,7 +11,7 @@ We will:
 4. Create a Deployment and learn its advantages.
 5. Learn about service discovery capabilities.
 
-## Create a new cluster
+## 1. Create a new cluster
 
 There are many ways to create a Kubernetes cluster. For this workshop we are going to use a simple cluster provided by Docker. https://labs.play-with-k8s.com/.
 
@@ -74,9 +74,44 @@ node2   Ready    <none>                 3m      v1.20.1
 node3   Ready    <none>                 2m58s   v1.20.1
 ```
 
+**Note:** You may need to wait for a few seconds before the nodes becomes available. 
 
-Note: You may need to wait for a few seconds before the nodes becomes available. 
 
+## 2. Deploy a Pod and a Service
+
+For now we will simply deploy a Pod and Service using the kubectl command line
+
+1. Run pod using this command:
+
+```
+kubectl run nginx-pod --image nginx:latest
+```
+
+This will create a pod called `nginx-pod` using the docker image `nginx:latest`
+
+2. Right now the application in running, but we can't access it. To expose the application, create a new service running this command:
+
+```
+kubectl expose pods nginx-pod --port=80 --target-port=80 --type='NodePort' --name=my-service
+```
+
+3. To list all the services, run the command `kubectl get services`. You'll get an output like this:
+
+```
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        28m
+my-service   NodePort    10.103.65.167   <none>        80:31934/TCP   3s
+```
+
+You'll see the Service we just created right there. See the PORT(S) columns. Take note of the second port, in this case, `31934`.
+
+4. Navigate to one of the nodes urls and the port. For example:
+
+```
+ip172-18-0-21-ccl3uukhtugg00877tk0.direct.labs.play-with-k8s.com:31934
+```
+
+Now the application will be running.
 
 ## Sample application
 
