@@ -1,0 +1,2 @@
+kubectl run nginx-pod --image nginx:latest --name=my-first-image
+kubectl expose pods ngix-pod --port=8080 --target-port=80 --type='NodePort' --name=my-service
