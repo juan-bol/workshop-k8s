@@ -77,7 +77,7 @@ node3   Ready    <none>                 2m58s   v1.20.1
 **Note:** You may need to wait for a few seconds before the nodes becomes available. 
 
 
-## 2. Deploy a Pod and a Service
+## 2. Create a Pod and a Service
 
 For now we will simply deploy a Pod and Service using the kubectl command line
 
@@ -113,7 +113,21 @@ ip172-18-0-21-ccl3uukhtugg00877tk0.direct.labs.play-with-k8s.com:31934
 
 Now the application will be running.
 
+## 3. Create a Pod and a Service using a YAML file
+
+## 4. Create a Deployment
+
+## 5. Let's play with the Deployment
+
+## 6. Deploy a new Version
+
+## 7. Deploy a new Version
+
+## 8. Deploy the second microservice
+
+
 ## Sample application
+
 
 #### Routes for v1
 
@@ -134,3 +148,4 @@ http://hostname:8000/divide?a=10&b=5
 http://hostname:8000/pow?a=10&b=5
 http://hostname:8000/modulo?a=10&b=5
 ```
+
