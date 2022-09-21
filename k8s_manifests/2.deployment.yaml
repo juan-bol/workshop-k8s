@@ -1,41 +1,41 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: replace ##Replace this with the name of you namespace.
+  name: firstname_lastname ##Replace this with the name of you namespace.
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calculator-example
+  name: nginx-example
   namespace: replace ##Replace this with the name of you namespace.
 spec:
   replicas: ##Set the number of replicas
   selector:
     matchLabels:
-      app: calculator-example
+      app: nginx-example
   template:
     metadata:
       labels:
-        app: calculator-example
+        app: nginx-example
     spec:
       containers:
-      - name: calculator-example
-        image: jersondavidma/calculator-example:v1
+      - name: nginx-example
+        image: nginx
         ports:
         - containerPort: #Set the port where the container is listing
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: calculator-ns
-  name: replace ##Replace this with the name of you namespace.
+  namespace: replace ##Replace this with the name of you namespace.
+  name: nginx-example-service
 spec:
   type: NodePort
   selector:
-    app: calculator-example
+    app: nginx-example
   ports:
     - protocol: TCP
-      port: 8000
+      port: 80
       targetPort: #Set the port where the container is listing
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
