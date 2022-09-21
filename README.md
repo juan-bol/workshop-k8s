@@ -10,6 +10,8 @@ We will:
 3. Learn about namespaces.
 4. Create a Deployment and learn its advantages.
 
+For this workshop, we will use the docker images hosted in https://hub.docker.com/r/jersondavidma/calculator-example
+
 ## 1. Create a new cluster
 
 There are many ways to create a Kubernetes cluster. For this workshop we are going to use a simple cluster provided by Docker. https://labs.play-with-k8s.com/.
@@ -171,7 +173,7 @@ Now that the deployment is running, let's make some test to see how it works.
 ## Sample application
 
 
-#### Routes for v1
+#### Endpoints for v1
 
 ```
 GET /add?a=10&b=5
@@ -180,7 +182,7 @@ GET /multiply?a=10&b=5
 GET /divide?a=10&b=5
 ```
 
-#### Routes for v2
+#### Endpoints for v2
 
 ```
 GET /add?a=10&b=5
