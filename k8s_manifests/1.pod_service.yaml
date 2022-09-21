@@ -9,7 +9,7 @@ spec:
   - name: calculator-example
     image: jersondavidma/calculator-example:v1
     ports:
-    - containerPort: 80
+    - containerPort: 8000
 ---
 apiVersion: v1
 kind: Service

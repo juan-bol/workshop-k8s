@@ -27,7 +27,6 @@ There are many ways to create a Kubernetes cluster. For this workshop we are goi
  2. Initialize cluster networking:
 
 kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
-
 ```
 
 4. After you run the first command, you'll get an output like this,
@@ -168,6 +167,10 @@ Now that the deployment is running, let's make some test to see how it works.
 1. There's another version of the application in dockerhub called `jersondavidma/calculator-example:v2`. Change the tag of the image in manifest to this new version and apply the changes.
 2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes.
 3. Change the strategy to  **Recreate** and see how it changes the behavior. 
+
+## 8. Add CPU and memory limits for the pods (Optional)
+
+We can limit how much memory and CPU a single pod can use. Reasearch about how to do it and implement it yourself. 
 
 
 ## Sample application
