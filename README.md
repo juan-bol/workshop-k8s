@@ -115,18 +115,56 @@ Now the application will be running.
 
 ## 3. Create a Pod and a Service using a YAML file
 
+We deployed the application using the command line. Now let's deploy it using a yaml file.
+
+1. Open the file called [1.pod_service.yaml](k8s_manifests/1.pod_service.yaml) and copy it's content.
+2. Create a new yaml file inside the master node of the cluster and paste its content.
+3. run the command `kubectl apply -f name_of_file.yaml`.
+4. You should check the all the resources were created:
+
+```
+kubectl get namespaces
+kubectl get pods
+kubectl get services
+```
+
 ## 4. Create a Deployment
+
+Usually a single pod is not enough. Let's create a Deployment object.
+
+1. Open the file [2.deployment.yaml](k8s_manifests/2.deployment.yaml). 
+2. Complete the missing information in this file.
+3. Create a new yaml file inside the master node of the cluster and paste its content.
+4. run the command `kubectl apply -f name_of_file.yaml`.
+5. You should check the all the resources were created:
+
+```
+kubectl get namespaces
+kubectl get pods
+kubectl get deployments
+kubectl get replicasets
+kubectl get services
+```
 
 ## 5. Let's play with the Deployment
 
+Now that the deployment is running, let's make some test to see how it works.
+
+1. List all the pods and select one. Run the command `kubectl delete pod pod_name`. The pod will be deleted. List again all the pods. You should see that kubernetes creates a new pod. This happens because the Deployment controller makes sure that the number of replica that you specified are the replicas running.
+
+2. Change the number of replicas to scale up and scale down the number of pods. Apply the file again and see what happens with the number of pods.
+
 ## 6. Deploy a new Version
 
-## 7. Deploy a new Version
+1. There's another version of the application in dockerhub called **NAME OF VERSION**. Change the tag of the image in manifest to this new version and apply the changes.
+2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes. 
+3. Change the strategy to  **Recreate** and see how it changes the behavior. 
 
-## 8. Deploy the second microservice
+## 7. Deploy the second microservice
 
 
 ## Sample application
+
 
 
 #### Routes for v1
