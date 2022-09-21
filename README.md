@@ -53,9 +53,9 @@ kubeadm join 192.168.0.23:6443 --token wk4tqn.4ta8xgm7jr0i93ng \
     --discovery-token-ca-cert-hash sha256:3ebb5b8c797e372d86da880d60035b6173a6913b8f79ee05d37acf09c6354921 
 ```
 
-Copy this output to a safe place, we'll need it later. 
+Copy this output to a safe place, we'll need it later. Then, run the second command.
 
-5. Add two new instances and paste the last command we found in the previous step
+5. Add two new instances and paste the last command we found in the previous step in each instance
 
 ```
 kubeadm join 192.168.0.23:6443 --token wk4tqn.4ta8xgm7jr0i93ng \
@@ -83,23 +83,23 @@ For now we will simply deploy a Pod and Service using the kubectl command line
 1. Run pod using this command:
 
 ```
-kubectl run nginx-pod --image nginx:latest
+kubectl run calculator-example --image jersondavidma/calculator-example:v1
 ```
 
-This will create a pod called `nginx-pod` using the docker image `nginx:latest`
+This will create a pod called `calculator-example` using the docker image `calculator-example:v1`
 
 2. Right now the application in running, but we can't access it. To expose the application, create a new service running this command:
 
 ```
-kubectl expose pods nginx-pod --port=80 --target-port=80 --type='NodePort' --name=my-service
+kubectl expose pods calculator-example --port=80 --target-port=80 --type='NodePort' --name=calculator-example-service
 ```
 
 3. To list all the services, run the command `kubectl get services`. You'll get an output like this:
 
 ```
-NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        28m
-my-service   NodePort    10.103.65.167   <none>        80:31934/TCP   3s
+NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes                      ClusterIP   10.96.0.1       <none>        443/TCP        28m
+calculator-example-service      NodePort    10.103.65.167   <none>        80:31934/TCP   3s
 ```
 
 You'll see the Service we just created right there. See the PORT(S) columns. Take note of the second port, in this case, `31934`.
@@ -129,10 +129,10 @@ kubectl get services
 
 ## 4. Change the port where the application is running (Optional)
 
-The application by default is running in the port 8000 inside the pod. This application recieves an environment variables called `PORT`. 
+The application by default is running in the port 8000 inside the pod. This can be changed updating the environment variable called `PORT`.
 
-1. Update the pod manifest to this environment variable.
-2. Update the service to reflect this change.
+1. Update the Pod manifest to add this environment variable to the Pod.
+2. Update the Service to reflect this change.
 
 
 ## 5. Create a Deployment
@@ -163,8 +163,8 @@ Now that the deployment is running, let's make some test to see how it works.
 
 ## 7. Deploy a new Version
 
-1. There's another version of the application in dockerhub called **NAME OF VERSION**. Change the tag of the image in manifest to this new version and apply the changes.
-2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes. 
+1. There's another version of the application in dockerhub called `jersondavidma/calculator-example:v2`. Change the tag of the image in manifest to this new version and apply the changes.
+2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes.
 3. Change the strategy to  **Recreate** and see how it changes the behavior. 
 
 
@@ -174,19 +174,19 @@ Now that the deployment is running, let's make some test to see how it works.
 #### Routes for v1
 
 ```
-http://hostname:8000/add?a=10&b=5
-http://hostname:8000/subtract?a=10&b=5
-http://hostname:8000/multiply?a=10&b=5
-http://hostname:8000/divide?a=10&b=5
+GET /add?a=10&b=5
+GET /subtract?a=10&b=5
+GET /multiply?a=10&b=5
+GET /divide?a=10&b=5
 ```
 
 #### Routes for v2
 
 ```
-http://hostname:8000/add?a=10&b=5
-http://hostname:8000/subtract?a=10&b=5
-http://hostname:8000/multiply?a=10&b=5
-http://hostname:8000/divide?a=10&b=5
-http://hostname:8000/pow?a=10&b=5
-http://hostname:8000/modulo?a=10&b=5
+GET /add?a=10&b=5
+GET /subtract?a=10&b=5
+GET /multiply?a=10&b=5
+GET /divide?a=10&b=5
+GET /pow?a=10&b=5
+GET /modulo?a=10&b=5
 ```
