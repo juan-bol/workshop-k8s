@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: calculator-ns
+  name: replace ##Replace this with the name of you namespace.
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-example
-  namespace: calculator-ns
+  namespace: replace ##Replace this with the name of you namespace.
 spec:
-  replicas: 2
+  replicas: ##Set the number of replicas
   selector:
     matchLabels:
       app: calculator-example
@@ -22,13 +22,13 @@ spec:
       - name: calculator-example
         image: jersondavidma/calculator-example:v1
         ports:
-        - containerPort: 8000
+        - containerPort: #Set the port where the container is listing
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: calculator-ns
-  name: calculator-example-service
+  name: replace ##Replace this with the name of you namespace.
 spec:
   type: NodePort
   selector:
@@ -36,7 +36,7 @@ spec:
   ports:
     - protocol: TCP
       port: 8000
-      targetPort: 8000
+      targetPort: #Set the port where the container is listing
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30000

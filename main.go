@@ -92,26 +92,26 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		io.WriteString(w, fmt.Sprint("Result: ", result, message))
 	})
+	/*
+		r.HandleFunc("/modulo", func(w http.ResponseWriter, r *http.Request) {
+			a, b, err := getParamsAandB(w, r)
+			if err != nil {
+				return
+			}
+			result := modulo(a, b)
+			w.WriteHeader(http.StatusOK)
+			io.WriteString(w, fmt.Sprint("Result: ", result, message))
+		})
 
-	r.HandleFunc("/modulo", func(w http.ResponseWriter, r *http.Request) {
-		a, b, err := getParamsAandB(w, r)
-		if err != nil {
-			return
-		}
-		result := modulo(a, b)
-		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, fmt.Sprint("Result: ", result, message))
-	})
-
-	r.HandleFunc("/pow", func(w http.ResponseWriter, r *http.Request) {
-		a, b, err := getParamsAandB(w, r)
-		if err != nil {
-			return
-		}
-		result := pow(a, b)
-		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, fmt.Sprint("Result: ", result, message))
-	})
+		r.HandleFunc("/pow", func(w http.ResponseWriter, r *http.Request) {
+			a, b, err := getParamsAandB(w, r)
+			if err != nil {
+				return
+			}
+			result := pow(a, b)
+			w.WriteHeader(http.StatusOK)
+			io.WriteString(w, fmt.Sprint("Result: ", result, message))
+		})*/
 
 	log.Println("Staring server in port :" + port)
 	log.Fatal(http.ListenAndServe(":"+port, r))

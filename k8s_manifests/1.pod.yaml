@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: calculator-ns
+  name: firstname_lastname ##Replace this with the name of you namespace.
 ---
 apiVersion: v1
 kind: Pod
 metadata:
   name: calculator-example
-  namespace: calculator-ns
+  namespace: replace ##Replace this with the name of you namespace.
   labels:
     app: calculator-example
 spec:
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: calculator-example-service
-  namespace: calculator-ns
+  namespace: replace ##Replace this with the name of you namespace.
 spec:
   type: NodePort
   selector:
