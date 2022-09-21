@@ -1,9 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: calculator-ns
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-example
+  namespace: calculator-ns
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: calculator-example
@@ -21,6 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: calculator-ns
   name: calculator-example-service
 spec:
   type: NodePort

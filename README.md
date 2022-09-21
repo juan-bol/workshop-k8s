@@ -17,7 +17,7 @@ For this workshop, we will use the docker images hosted in https://hub.docker.co
 There are many ways to create a Kubernetes cluster. For this workshop we are going to use a simple cluster provided by Docker. https://labs.play-with-k8s.com/.
 
 1. Once in the page, login using a github or a Docker account and click Start.
-2. Create a new intance clicking in the button ADD NEW INSTANCE. A new terminal will openned.
+2. Create a new instance clicking in the button ADD NEW INSTANCE. A new terminal will opened.
 3. This first instance will be the Master Node. Run the first two commands that it shows. 
 ```
  1. Initializes cluster master node:
@@ -65,7 +65,7 @@ kubeadm join 192.168.0.23:6443 --token wk4tqn.4ta8xgm7jr0i93ng \
 
 This will register both instances as worker nodes to the cluster.
 
-6. Now we have a three nodes cluster. Once instance is the master nodes, and the other 2 are worker nodes. Run the command  `kubectl get nodes` to view the available nodes in the cluster. The output should be something like this:
+6. Now we have a three nodes cluster. One instance is the master nodes, and the other 2 are worker nodes. Run the command  `kubectl get nodes` to view the available nodes in the cluster. The output should be something like this:
 
 ```
 NAME    STATUS   ROLES                  AGE     VERSION
@@ -74,12 +74,12 @@ node2   Ready    <none>                 3m      v1.20.1
 node3   Ready    <none>                 2m58s   v1.20.1
 ```
 
-**Note:** You may need to wait for a few seconds before the nodes becomes available. 
-
+**Note:** You need to wait for a few seconds before the nodes becomes available.
+**Note:** You can use the `-w` option to watch the changes in almost any command. For example, `kubectl get nodes -w`
 
 ## 2. Create a Pod and a Service
 
-For now we will simply deploy a Pod and Service using the kubectl command line
+For now we will deploy a Pod and Service using the kubectl command line
 
 1. Run pod using this command:
 
@@ -87,7 +87,11 @@ For now we will simply deploy a Pod and Service using the kubectl command line
 kubectl run calculator-example --image jersondavidma/calculator-example:v1
 ```
 
-This will create a pod called `calculator-example` using the docker image `calculator-example:v1`
+This will create a pod called `calculator-example` using the docker image `calculator-example:v1`. Check which Pods are running with the command
+
+```
+kubectl get pods
+```
 
 2. Right now the application in running, but we can't access it. To expose the application, create a new service running this command:
 
@@ -111,9 +115,11 @@ You'll see the Service we just created right there. See the PORT(S) columns. Tak
 ip172-18-0-21-ccl3uukhtugg00877tk0.direct.labs.play-with-k8s.com:31934
 ```
 
-Now the application will be running.
+The application should be running in your browser.
 
-## 3. Create a Pod and a Service using a YAML file
+5. Delete the resources created in the step.
+
+## 3. Create a Namespace, a Pod and a Service using a YAML file
 
 We deployed the application using the command line. Now let's deploy it using a yaml file.
 
@@ -124,8 +130,8 @@ We deployed the application using the command line. Now let's deploy it using a 
 
 ```
 kubectl get namespaces
-kubectl get pods
-kubectl get services
+kubectl get pods -n calculator-ns
+kubectl get services -n calculator-ns
 ```
 
 ## 4. Change the port where the application is running (Optional)
@@ -148,29 +154,29 @@ Usually a single pod is not enough. Let's create a Deployment object.
 
 ```
 kubectl get namespaces
-kubectl get pods
-kubectl get deployments
-kubectl get replicasets
-kubectl get services
+kubectl get deployments -n calculator-ns
+kubectl get replicasets -n calculator-ns
+kubectl get pods -n calculator-ns
+kubectl get services -n calculator-ns
 ```
 
 ## 6. Let's play with the Deployment
 
 Now that the deployment is running, let's make some test to see how it works.
 
-1. List all the pods and select one. Run the command `kubectl delete pod pod_name`. The pod will be deleted. List again all the pods. You should see that kubernetes creates a new pod. This happens because the Deployment controller makes sure that the number of replica that you specified are the replicas running.
+1. List all the pods and select one. Run the command `kubectl delete pod pod_name -n calculator-ns`. The pod will be deleted. List again all the pods. You should see that kubernetes creates a new pod. This happens because the Deployment controller makes sure that the number of replica that you specified are the replicas running.
 
 2. Change the number of replicas to scale up and scale down the number of pods. Apply the file again and see what happens with the number of pods.
 
 ## 7. Deploy a new Version
 
-1. There's another version of the application in dockerhub called `jersondavidma/calculator-example:v2`. Change the tag of the image in manifest to this new version and apply the changes.
-2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes.
+1. There's another version of the application in Dockerhub called `jersondavidma/calculator-example:v2`. Change the tag of the image in manifest to this new version and apply the changes.
+2. Run the command `kubectl get pods -w  -n calculator-ns` and wait for a few seconds. See how kubernetes apply this changes.
 3. Change the strategy to  **Recreate** and see how it changes the behavior. 
 
 ## 8. Add CPU and memory limits for the pods (Optional)
 
-We can limit how much memory and CPU a single pod can use. Reasearch about how to do it and implement it yourself. 
+We can limit how much memory and CPU a single pod can use. Research about how to do it and implement it yourself. 
 
 
 ## Sample application
