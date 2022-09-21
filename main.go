@@ -6,14 +6,22 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
+
+	var port string
+	var ok bool
+
+	if port, ok = os.LookupEnv("PORT"); !ok {
+		port = "8000"
+	}
+
 	r := mux.NewRouter()
-	port := "8000"
 
 	r.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

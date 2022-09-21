@@ -9,7 +9,6 @@ We will:
 2. Deploy a Pod and a service.
 3. Learn about namespaces.
 4. Create a Deployment and learn its advantages.
-5. Learn about service discovery capabilities.
 
 ## 1. Create a new cluster
 
@@ -128,7 +127,15 @@ kubectl get pods
 kubectl get services
 ```
 
-## 4. Create a Deployment
+## 4. Change the port where the application is running (Optional)
+
+The application by default is running in the port 8000 inside the pod. This application recieves an environment variables called `PORT`. 
+
+1. Update the pod manifest to this environment variable.
+2. Update the service to reflect this change.
+
+
+## 5. Create a Deployment
 
 Usually a single pod is not enough. Let's create a Deployment object.
 
@@ -146,7 +153,7 @@ kubectl get replicasets
 kubectl get services
 ```
 
-## 5. Let's play with the Deployment
+## 6. Let's play with the Deployment
 
 Now that the deployment is running, let's make some test to see how it works.
 
@@ -154,17 +161,14 @@ Now that the deployment is running, let's make some test to see how it works.
 
 2. Change the number of replicas to scale up and scale down the number of pods. Apply the file again and see what happens with the number of pods.
 
-## 6. Deploy a new Version
+## 7. Deploy a new Version
 
 1. There's another version of the application in dockerhub called **NAME OF VERSION**. Change the tag of the image in manifest to this new version and apply the changes.
 2. Run the command `kubectl get pods -w ` and wait for a few seconds. See how kubernetes apply this changes. 
 3. Change the strategy to  **Recreate** and see how it changes the behavior. 
 
-## 7. Deploy the second microservice
-
 
 ## Sample application
-
 
 
 #### Routes for v1
@@ -186,4 +190,3 @@ http://hostname:8000/divide?a=10&b=5
 http://hostname:8000/pow?a=10&b=5
 http://hostname:8000/modulo?a=10&b=5
 ```
-
