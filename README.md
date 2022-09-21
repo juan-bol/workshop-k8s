@@ -175,7 +175,6 @@ We can limit how much memory and CPU a single pod can use. Reasearch about how t
 
 ## Sample application
 
-
 #### Endpoints for v1
 
 ```

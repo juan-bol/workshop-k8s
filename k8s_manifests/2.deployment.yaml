@@ -30,4 +30,6 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30000
